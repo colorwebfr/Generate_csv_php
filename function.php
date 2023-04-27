@@ -25,26 +25,26 @@ function cron_facebook_shoping()
             global $product;
             $ID_pdct = $product->get_id();
             $Name_pdct = $product->get_name();
-            $Slug_pdct = $product->get_slug();
-            $State = $product->get_status();
             $Decription = $product->get_description();
             $SKU = $product->get_sku();
             $Link_pdct = get_permalink($product->get_id());
             $Price = $product->get_price();
-            $Price_reg = $product->get_regular_price();
-            $Price_sale = $product->get_sale_price();
-            $Condition = $product->get_featured();
+            $Price_sale = $product->get_sale_price() !== '' ? $product->get_sale_price() : $Price;
             $Image_link = wp_get_attachment_url($product->get_image_id());
 
             $data_csv[] = array(
                 "id" => $ID_pdct,
                 "title" => $Name_pdct,
                 "description" => $Decription,
-                "availability" => "in stock",
-                "condition" => "new",
-                "price" => $Price,
+                "item group id" => $ID_pdct,
                 "link" => $Link_pdct,
-                "image_link" => $Image_link,
+                "product type" => "beauty",
+                "fb_product_category" => "",
+                "image link" => $Image_link,
+                "condition" => "new",
+                "availability" => "in stock",
+                "price" => $Price .'EUR',
+                "sale price" => $Price_sale .'EUR',
                 "brand" => "Jeanne Arthes"
             );
         }
